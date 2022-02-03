@@ -6,7 +6,14 @@ import {
   FaPause,
 } from "react-icons/fa";
 import { IoShuffleOutline } from "react-icons/io5";
-import Image from 'next/image'
+import {
+  BsFillSkipEndFill,
+  BsFillSkipStartFill,
+  BsPlayCircleFill,
+  BsPauseCircleFill,
+} from "react-icons/bs";
+
+import Image from "next/image";
 
 const AudioPlayer = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,7 +33,11 @@ const AudioPlayer = (props) => {
     } else {
       audioPlayer.current.pause();
     }
-  }, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState, isPlaying]);
+  }, [
+    audioPlayer?.current?.loadedmetadata,
+    audioPlayer?.current?.readyState,
+    isPlaying,
+  ]);
 
   const calculateTime = (secs) => {
     const minutes = Math.floor(secs / 60);
@@ -80,7 +91,8 @@ const AudioPlayer = (props) => {
 
   const prevSong = () => {
     if (currentTime != 0) {
-      setCurrentTime(0);
+      progressBar.current.value = 0;
+      changeRange();
     } else {
       props.setCurrentSongIndex(() => {
         let temp = props.currentSongIndex;
@@ -100,53 +112,70 @@ const AudioPlayer = (props) => {
       rand = Math.floor(Math.random() * props.songs.length);
     }
     props.setCurrentSongIndex(rand);
+    progressBar.current.value = 0;
+    changeRange();
   };
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg my-2 mx-2 bg-white">
-      <Image
-        src={props.songs[props.currentSongIndex].img_src}
-        alt=""
-        width = {500}
-        height={600}
-      />
-      <div className="flex w-1000px bg-sky-100">
-        <audio
-          ref={audioPlayer}
-          src={props.songs[props.currentSongIndex].src}
-          preload="metadata"
-        ></audio>
-        <button className="skipButtons" onClick={prevSong}>
-          <FaArrowAltCircleLeft></FaArrowAltCircleLeft>
-        </button>
-        <button
-          onClick={togglePlayPause}
-          className="hover:text-gray-500 flex items-center w-75px h-75px"
-        >
-          {isPlaying ? <FaPause /> : <FaPlay />}
-        </button>
-        <button className="skipButtons" onClick={SkipSong}>
-          <FaArrowAltCircleRight></FaArrowAltCircleRight>
-        </button>
-        <button className="skipButtons text-2xl" onClick={shuffleSong}>
-          <IoShuffleOutline />
-        </button>
-        {/*Current Time*/}
-        <div className="font-bold text-base ml-2 mr-2 items-center">
-          {calculateTime(currentTime)}
+    <div className="max-w-sm rounded overflow-hidden shadow-xl relative">
+      <div className="grid grid-cols-8 grid-rows-6">
+        <div className="row-span-full col-start-1 col-span-10 self-center max-w-sm -z-10">
+          <Image
+            className="max-h-96"
+            src={props.songs[props.currentSongIndex].img_src}
+            layout="fill"
+            objectFit="cover"
+            alt=""
+          />
         </div>
-        {/*Progress bar*/}
-        <div>
-          <input
-            className="progressBar"
-            type="range"
-            defaultValue="0"
-            ref={progressBar}
-            onChange={changeRange}
-          ></input>
+        <div className="col-start-2 row-start-6 row-span-2">
+          <audio
+            ref={audioPlayer}
+            src={props.songs[props.currentSongIndex].src}
+            preload="metadata"
+          ></audio>
+          {/*Progress bar*/}
+          <div>
+            <input
+              className="progressBar"
+              type="range"
+              defaultValue="0"
+              ref={progressBar}
+              onChange={changeRange}
+            ></input>
+          </div>
+        </div>
+        {/*Current Time*/}
+        <div className="grid grid-cols-4 grid-rows-4 col-start-1 row-start-6">
+          <div className=" font-bold text-sm row-start-2 col-start-3">
+            {calculateTime(currentTime)}
+          </div>
         </div>
         {/*Duration*/}
-        <div className="font-bold text-xl ml-2">{calculateTime(length)}</div>
+        <div className="grid grid-cols-4 grid-rows-4 col-start-7 row-start-6">
+          <div className=" font-bold text-sm row-start-2 col-start-3">
+            {calculateTime(length)}
+          </div>
+        </div>
+        <div className="grid row-start-6 col-start-4">
+          <div className="flex justify-center">
+            <button className="skipButtons" onClick={prevSong}>
+              <BsFillSkipStartFill />
+            </button>
+            <button
+              className="hover:text-gray-500 flex items-center text-4xl "
+              onClick={togglePlayPause}
+            >
+              {isPlaying ? <BsPauseCircleFill /> : <BsPlayCircleFill />}
+            </button>
+            <button className="skipButtons" onClick={SkipSong}>
+              <BsFillSkipEndFill />
+            </button>
+            <button className="skipButtons text-xl" onClick={shuffleSong}>
+              <IoShuffleOutline />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
