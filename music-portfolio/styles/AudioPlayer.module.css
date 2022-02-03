@@ -1,0 +1,9 @@
+.audioPlayer{
+    display: flex;
+    width: 700px;
+}
+
+.skipButtons{
+    background: none;
+    color: aquamarine;
+}
