@@ -5,10 +5,10 @@ import {
   FaPlay,
   FaPause,
 } from "react-icons/fa";
-import { IoShuffleOutline} from "react-icons/io5"
+import { IoShuffleOutline } from "react-icons/io5";
+import Image from 'next/image'
 
 const AudioPlayer = (props) => {
-  console.log(props);
   const [isPlaying, setIsPlaying] = useState(false);
   const [length, setLength] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
@@ -74,73 +74,79 @@ const AudioPlayer = (props) => {
       if (temp > props.songs.length - 1) {
         temp = 0;
       }
-      console.log(temp);
       return temp;
     });
   };
 
   const prevSong = () => {
-    props.setCurrentSongIndex(() => {
-      let temp = props.currentSongIndex;
-      temp--;
-      if (temp < 0) {
-        temp = props.songs.length - 1;
-      }
-      console.log(temp);
-      return temp;
-    });
+    if (currentTime != 0) {
+      setCurrentTime(0);
+    } else {
+      props.setCurrentSongIndex(() => {
+        let temp = props.currentSongIndex;
+        temp--;
+        if (temp < 0) {
+          temp = props.songs.length - 1;
+        }
+        return temp;
+      });
+    }
   };
 
   const shuffleSong = () => {
     let temp = props.currentSongIndex;
-    console.log(temp);
     let rand = Math.floor(Math.random() * props.songs.length);
     while (rand == temp) {
-        rand = Math.floor(Math.random() * props.songs.length);
+      rand = Math.floor(Math.random() * props.songs.length);
     }
-      props.setCurrentSongIndex(rand);
-      console.log(rand);
+    props.setCurrentSongIndex(rand);
   };
 
   return (
-    <div className="flex w-700px">
-      <audio
-        ref={audioPlayer}
-        src={props.songs[props.currentSongIndex].src}
-        preload="metadata"
-      ></audio>
-      <button className="skipButtons" onClick={prevSong}>
-        <FaArrowAltCircleLeft></FaArrowAltCircleLeft>
-      </button>
-      <button
-        onClick={togglePlayPause}
-        className="hover:text-gray-500 flex items-center w-75px h-75px "
-      >
-        {isPlaying ? <FaPause /> : <FaPlay />}
-      </button>
-      <button className="skipButtons" onClick={SkipSong}>
-        <FaArrowAltCircleRight></FaArrowAltCircleRight>
-      </button>
-      <button className="skipButtons text-2xl" onClick={shuffleSong}>
-        <IoShuffleOutline/>
-      </button>
-      {/*Current Time*/}
-      <div className="font-bold text-base ml-2 mr-2 items-center">
-        {calculateTime(currentTime)}
-      </div>
-      {/*Progress bar*/}
-      <div>
-        <input
-          className="progressBar"
-          type="range"
-          defaultValue="0"
-          ref={progressBar}
-          onChange={changeRange}
-        ></input>
-      </div>
-      {/*Duration*/}
-      <div className="font-bold text-xl ml-2">
-        {length && !isNaN(length) && calculateTime(length)}
+    <div className="max-w-sm rounded overflow-hidden shadow-lg my-2 mx-2 bg-white">
+      <Image
+        src={props.songs[props.currentSongIndex].img_src}
+        alt=""
+        width = {500}
+        height={600}
+      />
+      <div className="flex w-1000px bg-sky-100">
+        <audio
+          ref={audioPlayer}
+          src={props.songs[props.currentSongIndex].src}
+          preload="metadata"
+        ></audio>
+        <button className="skipButtons" onClick={prevSong}>
+          <FaArrowAltCircleLeft></FaArrowAltCircleLeft>
+        </button>
+        <button
+          onClick={togglePlayPause}
+          className="hover:text-gray-500 flex items-center w-75px h-75px"
+        >
+          {isPlaying ? <FaPause /> : <FaPlay />}
+        </button>
+        <button className="skipButtons" onClick={SkipSong}>
+          <FaArrowAltCircleRight></FaArrowAltCircleRight>
+        </button>
+        <button className="skipButtons text-2xl" onClick={shuffleSong}>
+          <IoShuffleOutline />
+        </button>
+        {/*Current Time*/}
+        <div className="font-bold text-base ml-2 mr-2 items-center">
+          {calculateTime(currentTime)}
+        </div>
+        {/*Progress bar*/}
+        <div>
+          <input
+            className="progressBar"
+            type="range"
+            defaultValue="0"
+            ref={progressBar}
+            onChange={changeRange}
+          ></input>
+        </div>
+        {/*Duration*/}
+        <div className="font-bold text-xl ml-2">{calculateTime(length)}</div>
       </div>
     </div>
   );
