@@ -26,7 +26,7 @@ const AudioPlayer = (props) => {
     } else {
       audioPlayer.current.pause();
     }
-  }, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState]);
+  }, [audioPlayer?.current?.loadedmetadata, audioPlayer?.current?.readyState, isPlaying]);
 
   const calculateTime = (secs) => {
     const minutes = Math.floor(secs / 60);

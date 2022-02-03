@@ -41,7 +41,7 @@ export default function Home() {
         return currentSongIndex + 1;
       }
     });
-  }, [currentSongIndex]);
+  }, [currentSongIndex, songs.length]);
 
   return (
     <div className={styles.container}>
