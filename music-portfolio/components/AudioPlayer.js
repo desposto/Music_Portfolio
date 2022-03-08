@@ -27,7 +27,6 @@ const AudioPlayer = (props) => {
 
   useEffect(() => {
     const seconds = Math.floor(audioPlayer.current.duration);
-    setSongDuration(seconds);
     progressBar.current.max = seconds;
     if (isPlaying) {
       audioPlayer.current.play();
@@ -39,6 +38,11 @@ const AudioPlayer = (props) => {
     audioPlayer?.current?.readyState,
     isPlaying,
   ]);
+
+  const loadedMeta = () => {
+    const seconds = Math.floor(audioPlayer.current.duration);
+    setSongDuration(seconds);
+  };
 
   //Converts song duration from seconds to Mins and Seconds
   const calculateTime = (secs) => {
@@ -55,7 +59,7 @@ const AudioPlayer = (props) => {
     setIsPlaying(!pastValue);
     if (!pastValue) {
       audioPlayer.current.play();
-      animationReference.current = requestAnimationFrame(whilePlaying);
+      // animationReference.current = requestAnimationFrame(whilePlaying);
     } else {
       audioPlayer.current.pause();
       cancelAnimationFrame(animationReference.current);
@@ -66,7 +70,7 @@ const AudioPlayer = (props) => {
   const whilePlaying = () => {
     progressBar.current.value = audioPlayer.current.currentTime;
     changePlayerCurrentTime();
-    animationReference.current = requestAnimationFrame(whilePlaying);
+    // animationReference.current = requestAnimationFrame(whilePlaying);
   };
 
   //change song range
@@ -86,6 +90,13 @@ const AudioPlayer = (props) => {
 
   //Skips song
   const SkipSong = () => {
+    const temp = isPlaying;
+    setIsPlaying(false);
+    if (temp === true) {
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 100);
+    }
     progressBar.current.value = 0;
     setCurrentTime(0);
     props.setCurrentSongIndex(() => {
@@ -100,6 +111,13 @@ const AudioPlayer = (props) => {
 
   //reset song or move to previous song
   const prevSong = () => {
+    const temp = isPlaying;
+    setIsPlaying(false);
+    if (temp === true) {
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 100);
+    }
     if (currentTime != 0) {
       progressBar.current.value = 0;
       changeRange();
@@ -116,6 +134,13 @@ const AudioPlayer = (props) => {
   };
 
   const shuffleSong = () => {
+    const temp1 = isPlaying;
+    setIsPlaying(false);
+    if (temp1 === true) {
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 100);
+    }
     let temp = props.currentSongIndex;
     let rand = Math.floor(Math.random() * props.songs.length);
     while (rand == temp) {
@@ -141,15 +166,14 @@ const AudioPlayer = (props) => {
 
         {/*Bottom Bar*/}
         <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative ">
-
           <div className="row-start-3 row-span-1 grid p-0 absolute left-10 bottom-1 ">
             {/* Title */}
             <div className=" text-wt font-mono font-bold ">
               {props.songs[props.currentSongIndex].title}
             </div>
             {/* BPM */}
-            <div className="text-xs font-mono text-wt absolute top-4  ">
-              {props.songs[props.currentSongIndex].bpm}.bpm
+            <div className="text-xs font-mono text-wt absolute top-4 italic">
+              {props.songs[props.currentSongIndex].bpm}BPM
             </div>
           </div>
           {/* CurrentTime */}
@@ -206,7 +230,8 @@ const AudioPlayer = (props) => {
             src={props.songs[props.currentSongIndex].src}
             preload="metadata"
             onEnded={SkipSong} //starts next song when song ends
-            
+            onTimeUpdate={whilePlaying}
+            onLoadedMetadata={loadedMeta}
           ></audio>
         </div>
       </div>
