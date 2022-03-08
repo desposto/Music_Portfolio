@@ -11,6 +11,7 @@ import {
   BsFillSkipStartFill,
   BsPlayCircleFill,
   BsPauseCircleFill,
+  BsFillHeartFill,
 } from "react-icons/bs";
 
 import Image from "next/image";
@@ -85,6 +86,8 @@ const AudioPlayer = (props) => {
 
   //Skips song
   const SkipSong = () => {
+    progressBar.current.value = 0;
+    setCurrentTime(0);
     props.setCurrentSongIndex(() => {
       let temp = props.currentSongIndex;
       temp++;
@@ -125,7 +128,7 @@ const AudioPlayer = (props) => {
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-xl relative flex flex-col justify-center items-center my-4 z-10">
-      <div className="grid grid-cols-8 grid-rows-6">
+      <div className="grid grid-cols-8 grid-rows-6 max-h-[28rem] max-w-xs">
         <div className="row-span-full col-span-full self-center -z-10">
           <Image
             className=""
@@ -135,45 +138,33 @@ const AudioPlayer = (props) => {
             alt=""
           />
         </div>
-        <div className="col-span-full row-start-5 row-span-2 grid grid-rows-5 z-5">
-          <div className="bg-bk col-span-full row-start-3 row-span-3 max-h-32 bg-opacity-75 rounded"></div>
-        </div>
-        <div className="col-start-2 row-start-6 row-span-2">
-          {/*Audio*/}
-          <audio
-            ref={audioPlayer}
-            src={props.songs[props.currentSongIndex].src}
-            preload="metadata"
-            onEnded={SkipSong} //starts next song when song ends
-          ></audio>
-          {/*Progress bar*/}
-          <div>
-            <input
-              className="progressBar"
-              type="range"
-              defaultValue="0"
-              ref={progressBar}
-              onChange={changeRange}
-            ></input>
-          </div>
-        </div>
 
-        {/*Current Time*/}
-        <div className="grid grid-cols-4 grid-rows-4 col-start-1 row-start-6">
-          <div className=" font-bold text-sm row-start-2 col-start-3 text-wt">
+        {/*Bottom Bar*/}
+        <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative ">
+
+          <div className="row-start-3 row-span-1 grid p-0 absolute left-10 bottom-1 ">
+            {/* Title */}
+            <div className=" text-wt font-mono font-bold ">
+              {props.songs[props.currentSongIndex].title}
+            </div>
+            {/* BPM */}
+            <div className="text-xs font-mono text-wt absolute top-4  ">
+              {props.songs[props.currentSongIndex].bpm}.bpm
+            </div>
+          </div>
+          {/* CurrentTime */}
+          <div className=" font-bold text-xs row-start-4 col-start-2 text-wt font-mono mt-6">
             {calculateTime(currentTime)}
           </div>
-        </div>
-
-        {/*Duration*/}
-        <div className="grid grid-cols-4 grid-rows-4 col-start-7 row-start-6">
-          <div className=" font-bold text-sm row-start-2 col-start-3 text-wt">
+          {/* Duration */}
+          <div className=" font-bold text-xs row-start-4 col-start-10 text-wt font-mono mt-6">
             {calculateTime(songDuration)}
           </div>
-        </div>
-
-        <div className="grid row-start-6 col-start-4">
-          <div className="flex justify-center">
+          {/* Buttons */}
+          <div className="flex row-start-5 col-start-6">
+            <button className="text-wt text-lg hover:text-red-600">
+              <BsFillHeartFill />
+            </button>
             {/*Backward Skip Button*/}
             <button className="skipButtons" onClick={prevSong}>
               <BsFillSkipStartFill />
@@ -197,6 +188,25 @@ const AudioPlayer = (props) => {
               <IoShuffleOutline />
             </button>
           </div>
+          {/* Progress Bar */}
+          <div className="row-start-4 col-start-6 mb-2">
+            <input
+              className="progressBar"
+              type="range"
+              defaultValue="0"
+              ref={progressBar}
+              onChange={changeRange}
+            ></input>
+          </div>
+        </div>
+        <div className="col-start-2 row-start-6 row-span-2">
+          {/*Audio*/}
+          <audio
+            ref={audioPlayer}
+            src={props.songs[props.currentSongIndex].src}
+            preload="metadata"
+            onEnded={SkipSong} //starts next song when song ends
+          ></audio>
         </div>
       </div>
     </div>

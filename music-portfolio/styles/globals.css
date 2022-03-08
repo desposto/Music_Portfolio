@@ -27,17 +27,17 @@ a {
 
 @layer components {
   .progressBar {
-    --bar-bg: rgb(107 114 128);
+    --bar-bg: rgb(156 163 175);
     --seek-before-width: 0;
-    --seek-before-color: rgb(17 24 39);
-    --knobby: rgb(17 24 39);
+    --seek-before-color: #dcdfeb;
+    --knobby: #dcdfeb;
     --selectedKnobby: rgb(55 65 81);
 
     appearance: none;
     background: var(--bar-bg);
     border-radius: 11px;
     position: relative;
-    width: 18rem;
+    width: 16rem;
     height: 4px;
     outline: none;
   }
