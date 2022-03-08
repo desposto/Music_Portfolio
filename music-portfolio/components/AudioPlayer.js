@@ -206,6 +206,7 @@ const AudioPlayer = (props) => {
             src={props.songs[props.currentSongIndex].src}
             preload="metadata"
             onEnded={SkipSong} //starts next song when song ends
+            
           ></audio>
         </div>
       </div>
