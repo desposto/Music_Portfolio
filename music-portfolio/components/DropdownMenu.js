@@ -5,7 +5,7 @@ const DropdownMenu = (props) => {
     <div
       className={
         props.isOpen
-          ? "grid grid-rows-4 text-center items-center bg-black w-full text-white"
+          ? "grid grid-rows-3 text-center items-center bg-bk w-full text-wt pb-3"
           : "hidden"
       }
     >

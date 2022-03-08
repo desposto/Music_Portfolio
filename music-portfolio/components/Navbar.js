@@ -4,13 +4,13 @@ import { AiOutlineMenu } from "react-icons/ai";
 
 function Navbar({toggle}) {
   return (
-    <div className="flex justify-between items-center h-16 bg-black text-white relative shadow-sm font-mono w-full font-bold ">
+    <div className="flex justify-between items-center h-16 bg-bk text-wt relative shadow-sm font-mono w-full font-bold ">
       <div className="px-4">David Esposto - Music Portfolio</div>
       <div className="px-4 cursor-pointer md:hidden" onClick={toggle}>
         <AiOutlineMenu></AiOutlineMenu>
       </div>
-      <div className="pr-8 md:block hidden space-x-3">
-        <Link href="/Home" className="pl-8 ">
+      <div className="pr-8 md:block hidden space-x-3 ">
+        <Link href="/Home" className="pl-8">
           Home
         </Link>
         <Link href="/Home" className="pl-8">

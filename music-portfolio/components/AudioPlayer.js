@@ -126,14 +126,17 @@ const AudioPlayer = (props) => {
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-xl relative flex flex-col justify-center items-center my-4 z-10">
       <div className="grid grid-cols-8 grid-rows-6">
-        <div className="row-span-full col-start-1 col-span-10 self-center max-w-sm -z-10">
+        <div className="row-span-full col-span-full self-center -z-10">
           <Image
-            className="max-h-96"
+            className=""
             src={props.songs[props.currentSongIndex].img_src}
             layout="fill"
             objectFit="cover"
             alt=""
           />
+        </div>
+        <div className="col-span-full row-start-5 row-span-2 grid grid-rows-5 z-5">
+          <div className="bg-bk col-span-full row-start-3 row-span-3 max-h-32 bg-opacity-75 rounded"></div>
         </div>
         <div className="col-start-2 row-start-6 row-span-2">
           {/*Audio*/}
@@ -157,14 +160,14 @@ const AudioPlayer = (props) => {
 
         {/*Current Time*/}
         <div className="grid grid-cols-4 grid-rows-4 col-start-1 row-start-6">
-          <div className=" font-bold text-sm row-start-2 col-start-3">
+          <div className=" font-bold text-sm row-start-2 col-start-3 text-wt">
             {calculateTime(currentTime)}
           </div>
         </div>
 
         {/*Duration*/}
         <div className="grid grid-cols-4 grid-rows-4 col-start-7 row-start-6">
-          <div className=" font-bold text-sm row-start-2 col-start-3">
+          <div className=" font-bold text-sm row-start-2 col-start-3 text-wt">
             {calculateTime(songDuration)}
           </div>
         </div>
@@ -178,7 +181,7 @@ const AudioPlayer = (props) => {
 
             {/*Play Button*/}
             <button
-              className="hover:text-gray-500 flex items-center text-4xl "
+              className="hover:text-gray-500 flex items-center text-wt text-4xl "
               onClick={togglePlayPause}
             >
               {isPlaying ? <BsPauseCircleFill /> : <BsPlayCircleFill />}
