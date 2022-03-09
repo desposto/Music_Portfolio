@@ -90,7 +90,7 @@ const AudioPlayer = (props) => {
 
   //Skips song
   const SkipSong = () => {
-    const temp = isPlaying;
+    const temp = isPlaying; //temp to hold if the player was playing upon next song
     setIsPlaying(false);
     if (temp === true) {
       setTimeout(() => {
@@ -111,7 +111,7 @@ const AudioPlayer = (props) => {
 
   //reset song or move to previous song
   const prevSong = () => {
-    const temp = isPlaying;
+    const temp = isPlaying;//temp to hold if the player was playing upon prev song
     setIsPlaying(false);
     if (temp === true) {
       setTimeout(() => {
@@ -133,9 +133,10 @@ const AudioPlayer = (props) => {
     }
   };
 
+  //Shuffles song
   const shuffleSong = () => {
-    const temp1 = isPlaying;
-    setIsPlaying(false);
+    const temp1 = isPlaying; //temp to hold if the player was playing upon Shuffle
+    setIsPlaying(false);//need to quickly pause upon switching song to ensure the onTimeUpdate listener functions -> needs song to play or pause
     if (temp1 === true) {
       setTimeout(() => {
         setIsPlaying(true);

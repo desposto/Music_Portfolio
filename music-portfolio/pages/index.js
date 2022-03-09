@@ -10,67 +10,67 @@ export default function Home() {
   const [songs] = useState([
     {
       title: "Beach Party",
-      img_src: "/imgages/BeachParty-min.jpg",
+      img_src: "/images/BeachParty-min.jpg",
       src: "./music/$beach partuy.mp3",
       bpm: "125",
     },
     {
       title: "Beauty",
-      img_src: "/imgages/Beauty-min.jpg",
+      img_src: "/images/Beauty-min.jpg",
       src: "./music/$Beauty.mp3",
       bpm: "86",
     },
     {
       title: "Thumper",
-      img_src: "/imgages/Thumper-min.jpg",
+      img_src: "/images/Thumper-min.jpg",
       src: "./music/$clk clik cla.mp3",
       bpm: "96",
     },
     {
       title: "When We Sleep",
-      img_src: "/imgages/When We Sleep-min.jpg",
+      img_src: "/images/When We Sleep-min.jpg",
       src: "./music/$When we sleep.mp3",
       bpm: "168",
     },
     {
       title: "Back To West",
-      img_src: "/imgages/Back To West-min.jpg",
+      img_src: "/images/Back To West-min.jpg",
       src: "./music/$back to west.mp3",
       bpm: "160",
     },
     {
       title: "Bling",
-      img_src: "/imgages/Bling-min.jpg",
+      img_src: "/images/Bling-min.jpg",
       src: "./music/$bling.mp3",
       bpm: "168",
     },
     {
       title: "Bounce",
-      img_src: "/imgages/Bounce-min.jpg",
+      img_src: "/images/Bounce-min.jpg",
       src: "./music/$Bounce.mp3",
       bpm: "100",
     },
     {
       title: "Drill",
-      img_src: "/imgages/Drill-min.jpg",
+      img_src: "/images/Drill-min.jpg",
       src: "./music/$drill.mp3",
       bpm: "145",
     },
     {
       title: "Poke Through",
-      img_src: "/imgages/Poke Through-min.jpg",
+      img_src: "/images/Poke Through-min.jpg",
       src: "./music/$Poke Through.mp3",
       bpm: "158",
     },
     {
       title: "Shred",
-      img_src: "/imgages/Shred-min.jpg",
+      img_src: "/images/Shred-min.jpg",
       src: "./music/$Shred.mp3",
       bpm: "168",
     },
     {
       title: "Sublife",
-      img_src: "/imgages/Sublife-min.jpg",
+      img_src: "/images/Sublife-min.jpg",
       src: "./music/$Sublife.mp3",
       bpm: "172",
     },
@@ -86,6 +86,7 @@ export default function Home() {
     setIsOpen(!isOpen);
   };
 
+  //
   useEffect(() => {
     setNextSongIndex(() => {
       if (currentSongIndex + 1 > songs.length - 1) {
@@ -96,14 +97,15 @@ export default function Home() {
     });
   }, [currentSongIndex, songs.length]);
 
+  //hides Drop down if the window width becomes too small
   useEffect(() => {
     const hideDropDownMenu = () => {
       if (window.innerWidth > 768 && isOpen) {
         setIsOpen(false);
-        console.log("i resized");
       }
     };
 
+    //eventlistener for resize
     window.addEventListener("resize", hideDropDownMenu);
 
     return () => {

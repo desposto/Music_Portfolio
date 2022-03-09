@@ -18,7 +18,7 @@ function Navbar({ toggle }) {
         <AiOutlineMenu></AiOutlineMenu>
       </div>
       <div className="pr-8 md:block hidden space-x-3 ">
-        <Link href="/Home" className="pl-8">
+        <Link href="/About" className="pl-8">
           About
         </Link>
       </div>

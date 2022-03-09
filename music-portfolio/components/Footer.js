@@ -1,8 +1,10 @@
 import React from 'react'
+import {FaCopyright} from "react-icons/fa"
 
 const Footer = () => {
   return (
-    <div className='justify-between items-center h-8 bg-bk text-white relative shadow-sm font-mono w-full'>
+    <div className=' items-center h-8 bg-bk text-white relative shadow-sm font-mono w-full flex text-base'>
+        <FaCopyright></FaCopyright>David Esposto - 2022
     </div>
   )
 }
