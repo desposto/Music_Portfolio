@@ -39,6 +39,7 @@ const AudioPlayer = (props) => {
     isPlaying,
   ]);
 
+  //sets the seconds to the songduration
   const loadedMeta = () => {
     const seconds = Math.floor(audioPlayer.current.duration);
     setSongDuration(seconds);
@@ -133,6 +134,16 @@ const AudioPlayer = (props) => {
     }
   };
 
+  // const handleKeyPress = (event) => {
+  //   if (event.key === " ") {
+  //     togglePlayPause();
+  //   } else if (event.key === "ArrowLeft") {
+  //     prevSong();
+  //   } else if (event.key === "ArrowRight") {
+  //     SkipSong();
+  //   }
+  // };
+
   //Shuffles song
   const shuffleSong = () => {
     const temp1 = isPlaying; //temp to hold if the player was playing upon Shuffle
@@ -166,7 +177,7 @@ const AudioPlayer = (props) => {
           <img src={props.songs[props.currentSongIndex].img_src}></img>
         </div>
         {/*Bottom Bar*/}
-        <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative ">
+        <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative " >
           <div className="row-start-3 row-span-1 grid p-0 absolute left-10 bottom-1 ">
             {/* Title */}
             <div className=" text-wt font-mono font-bold ">
@@ -196,7 +207,7 @@ const AudioPlayer = (props) => {
               <BsFillHeartFill />
             </button>
             {/*Backward Skip Button*/}
-            <button className="skipButtons" onClick={prevSong}>
+            <button className="skipButtons" onClick={prevSong} >
               <BsFillSkipStartFill />
             </button>
 
@@ -236,8 +247,8 @@ const AudioPlayer = (props) => {
             src={props.songs[props.currentSongIndex].src}
             preload="metadata"
             onEnded={SkipSong} //starts next song when song ends
-            onTimeUpdate={whilePlaying}
-            onLoadedMetadata={loadedMeta}
+            onTimeUpdate={whilePlaying} //runs whileplaying on time update
+            onLoadedMetadata={loadedMeta} //runs loadedMeta when the metadata loads to set song duration
           ></audio>
         </div>
       </div>

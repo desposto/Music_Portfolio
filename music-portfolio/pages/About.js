@@ -2,8 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-import { DropdownMenu } from "../components/DropdownMenu";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import { ImSoundcloud2 } from "react-icons/im";
 import { FaYoutube, FaGithub, FaInstagram } from "react-icons/fa";
 
@@ -23,11 +22,11 @@ function About() {
       <div className="h-[25.8rem] pt-4 text-center flex flex-col align-middle items-center space-y-4">
         <p className="">
           All Music created by David Esposto <br></br>
-            Not Royalty-Free, Contact for Use! <br></br>
+          Not Royalty-Free, Contact for Use! <br></br>
           Developed using Next.js and TailwindCSS
         </p>
         <div className="flex space-x-5 items-center">
-            <p className="font-bold">Connect with me:</p>
+          <p className="font-bold">Connect with me:</p>
           <a href="https://soundcloud.com/24karatproductions">
             <ImSoundcloud2></ImSoundcloud2>
           </a>
