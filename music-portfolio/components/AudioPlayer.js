@@ -1,10 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import {
-  FaArrowAltCircleLeft,
-  FaArrowAltCircleRight,
-  FaPlay,
-  FaPause,
-} from "react-icons/fa";
 import { IoShuffleOutline } from "react-icons/io5";
 import {
   BsFillSkipEndFill,
@@ -20,6 +14,12 @@ const AudioPlayer = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [songDuration, setSongDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    //sets isLiked to the opposite of the current isLiked
+    setIsLiked(!isLiked);
+  };
 
   const audioPlayer = useRef();
   const progressBar = useRef();
@@ -111,7 +111,7 @@ const AudioPlayer = (props) => {
 
   //reset song or move to previous song
   const prevSong = () => {
-    const temp = isPlaying;//temp to hold if the player was playing upon prev song
+    const temp = isPlaying; //temp to hold if the player was playing upon prev song
     setIsPlaying(false);
     if (temp === true) {
       setTimeout(() => {
@@ -136,7 +136,7 @@ const AudioPlayer = (props) => {
   //Shuffles song
   const shuffleSong = () => {
     const temp1 = isPlaying; //temp to hold if the player was playing upon Shuffle
-    setIsPlaying(false);//need to quickly pause upon switching song to ensure the onTimeUpdate listener functions -> needs song to play or pause
+    setIsPlaying(false); //need to quickly pause upon switching song to ensure the onTimeUpdate listener functions -> needs song to play or pause
     if (temp1 === true) {
       setTimeout(() => {
         setIsPlaying(true);
@@ -187,7 +187,12 @@ const AudioPlayer = (props) => {
           </div>
           {/* Buttons */}
           <div className="flex row-start-5 col-start-6">
-            <button className="text-wt text-lg hover:text-red-600">
+            <button
+              className={` text-wt text-xl  rounded-xl hover:shadow-xl hover:text-red-400 ${
+                isLiked && "text-red-700"
+              } bg-none`}
+              onClick={handleLike}
+            >
               <BsFillHeartFill />
             </button>
             {/*Backward Skip Button*/}
