@@ -118,7 +118,7 @@ const AudioPlayer = (props) => {
         setIsPlaying(true);
       }, 100);
     }
-    if (currentTime != 0) {
+    if (currentTime > 3) {
       progressBar.current.value = 0;
       changeRange();
     } else {
@@ -154,7 +154,7 @@ const AudioPlayer = (props) => {
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-xl flex flex-col justify-center items-center my-4 z-10 ">
       <div className="grid grid-cols-8 grid-rows-6 max-h-[28rem] max-w-xs">
-        <div className="row-span-full col-span-full self-center -z-10 ">
+        <div className="row-span-full col-span-full self-center -z-10 relative">
           {/* <Image
             className=""
             src={props.songs[props.currentSongIndex].img_src}
@@ -162,9 +162,7 @@ const AudioPlayer = (props) => {
             objectFit="cover"
             alt=""
           /> */}
-          <img
-          src={props.songs[props.currentSongIndex].img_src}>
-          </img>
+          <img src={props.songs[props.currentSongIndex].img_src}></img>
         </div>
         {/*Bottom Bar*/}
         <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative ">
@@ -198,7 +196,7 @@ const AudioPlayer = (props) => {
 
             {/*Play Button*/}
             <button
-              className="hover:text-gray-500 flex items-center text-wt text-4xl "
+              className="hover:text-gray-500 flex items-center text-wt text-4xl hover:text-[2.15rem]"
               onClick={togglePlayPause}
             >
               {isPlaying ? <BsPauseCircleFill /> : <BsPlayCircleFill />}
