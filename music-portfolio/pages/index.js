@@ -76,10 +76,12 @@ export default function Home() {
     },
   ]);
 
+  //State Declaration
   const [currentSongIndex, setCurrentSongIndex] = useState(0);
   const [nextSongIndex, setNextSongIndex] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
+  //toggle for Menu
   const toggle = () => {
     setIsOpen(!isOpen);
   };

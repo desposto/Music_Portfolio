@@ -4,17 +4,11 @@ const DropdownMenu = (props) => {
   return (
     <div
       className={
-        props.isOpen
+        props.isOpen //if the drop down menu is open desplay if not hide
           ? "grid grid-rows-3 text-center items-center bg-bk w-full text-wt pb-3"
           : "hidden"
       }
     >
-      <Link className="p-4" href="/Home">
-        Home
-      </Link>
-      <Link className="p-4" href="/Home">
-        Menu
-      </Link>
       <Link className="p-4" href="/Home">
         About
       </Link>
