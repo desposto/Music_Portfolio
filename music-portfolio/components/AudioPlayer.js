@@ -1,10 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import {
-  FaArrowAltCircleLeft,
-  FaArrowAltCircleRight,
-  FaPlay,
-  FaPause,
-} from "react-icons/fa";
 import { IoShuffleOutline } from "react-icons/io5";
 import {
   BsFillSkipEndFill,
@@ -20,6 +14,12 @@ const AudioPlayer = (props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [songDuration, setSongDuration] = useState(0);
   const [currentTime, setCurrentTime] = useState(0);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = () => {
+    //sets isLiked to the opposite of the current isLiked
+    setIsLiked(!isLiked);
+  };
 
   const audioPlayer = useRef();
   const progressBar = useRef();
@@ -27,7 +27,6 @@ const AudioPlayer = (props) => {
 
   useEffect(() => {
     const seconds = Math.floor(audioPlayer.current.duration);
-    setSongDuration(seconds);
     progressBar.current.max = seconds;
     if (isPlaying) {
       audioPlayer.current.play();
@@ -39,6 +38,11 @@ const AudioPlayer = (props) => {
     audioPlayer?.current?.readyState,
     isPlaying,
   ]);
+
+  const loadedMeta = () => {
+    const seconds = Math.floor(audioPlayer.current.duration);
+    setSongDuration(seconds);
+  };
 
   //Converts song duration from seconds to Mins and Seconds
   const calculateTime = (secs) => {
@@ -55,7 +59,7 @@ const AudioPlayer = (props) => {
     setIsPlaying(!pastValue);
     if (!pastValue) {
       audioPlayer.current.play();
-      animationReference.current = requestAnimationFrame(whilePlaying);
+      // animationReference.current = requestAnimationFrame(whilePlaying);
     } else {
       audioPlayer.current.pause();
       cancelAnimationFrame(animationReference.current);
@@ -66,7 +70,7 @@ const AudioPlayer = (props) => {
   const whilePlaying = () => {
     progressBar.current.value = audioPlayer.current.currentTime;
     changePlayerCurrentTime();
-    animationReference.current = requestAnimationFrame(whilePlaying);
+    // animationReference.current = requestAnimationFrame(whilePlaying);
   };
 
   //change song range
@@ -86,6 +90,13 @@ const AudioPlayer = (props) => {
 
   //Skips song
   const SkipSong = () => {
+    const temp = isPlaying; //temp to hold if the player was playing upon next song
+    setIsPlaying(false);
+    if (temp === true) {
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 100);
+    }
     progressBar.current.value = 0;
     setCurrentTime(0);
     props.setCurrentSongIndex(() => {
@@ -100,7 +111,14 @@ const AudioPlayer = (props) => {
 
   //reset song or move to previous song
   const prevSong = () => {
-    if (currentTime != 0) {
+    const temp = isPlaying; //temp to hold if the player was playing upon prev song
+    setIsPlaying(false);
+    if (temp === true) {
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 100);
+    }
+    if (currentTime > 3) {
       progressBar.current.value = 0;
       changeRange();
     } else {
@@ -115,7 +133,15 @@ const AudioPlayer = (props) => {
     }
   };
 
+  //Shuffles song
   const shuffleSong = () => {
+    const temp1 = isPlaying; //temp to hold if the player was playing upon Shuffle
+    setIsPlaying(false); //need to quickly pause upon switching song to ensure the onTimeUpdate listener functions -> needs song to play or pause
+    if (temp1 === true) {
+      setTimeout(() => {
+        setIsPlaying(true);
+      }, 100);
+    }
     let temp = props.currentSongIndex;
     let rand = Math.floor(Math.random() * props.songs.length);
     while (rand == temp) {
@@ -127,29 +153,28 @@ const AudioPlayer = (props) => {
   };
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-xl relative flex flex-col justify-center items-center my-4 z-10">
+    <div className="max-w-sm rounded overflow-hidden shadow-xl flex flex-col justify-center items-center my-4 z-10 ">
       <div className="grid grid-cols-8 grid-rows-6 max-h-[28rem] max-w-xs">
-        <div className="row-span-full col-span-full self-center -z-10">
-          <Image
+        <div className="row-span-full col-span-full self-center -z-10 relative">
+          {/* <Image
             className=""
             src={props.songs[props.currentSongIndex].img_src}
             layout="fill"
             objectFit="cover"
             alt=""
-          />
+          /> */}
+          <img src={props.songs[props.currentSongIndex].img_src}></img>
         </div>
-
         {/*Bottom Bar*/}
         <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative ">
-
           <div className="row-start-3 row-span-1 grid p-0 absolute left-10 bottom-1 ">
             {/* Title */}
             <div className=" text-wt font-mono font-bold ">
               {props.songs[props.currentSongIndex].title}
             </div>
             {/* BPM */}
-            <div className="text-xs font-mono text-wt absolute top-4  ">
-              {props.songs[props.currentSongIndex].bpm}.bpm
+            <div className="text-xs font-mono text-wt absolute top-4 italic">
+              {props.songs[props.currentSongIndex].bpm}BPM
             </div>
           </div>
           {/* CurrentTime */}
@@ -162,7 +187,12 @@ const AudioPlayer = (props) => {
           </div>
           {/* Buttons */}
           <div className="flex row-start-5 col-start-6">
-            <button className="text-wt text-lg hover:text-red-600">
+            <button
+              className={` text-wt text-xl  rounded-xl hover:shadow-xl hover:text-red-400 ${
+                isLiked && "text-red-700"
+              } bg-none`}
+              onClick={handleLike}
+            >
               <BsFillHeartFill />
             </button>
             {/*Backward Skip Button*/}
@@ -172,7 +202,7 @@ const AudioPlayer = (props) => {
 
             {/*Play Button*/}
             <button
-              className="hover:text-gray-500 flex items-center text-wt text-4xl "
+              className="hover:text-gray-500 flex items-center text-wt text-4xl hover:text-[2.15rem]"
               onClick={togglePlayPause}
             >
               {isPlaying ? <BsPauseCircleFill /> : <BsPlayCircleFill />}
@@ -206,7 +236,8 @@ const AudioPlayer = (props) => {
             src={props.songs[props.currentSongIndex].src}
             preload="metadata"
             onEnded={SkipSong} //starts next song when song ends
-            
+            onTimeUpdate={whilePlaying}
+            onLoadedMetadata={loadedMeta}
           ></audio>
         </div>
       </div>
