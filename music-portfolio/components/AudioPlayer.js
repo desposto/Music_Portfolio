@@ -165,7 +165,7 @@ const AudioPlayer = (props) => {
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-xl flex flex-col justify-center items-center my-4 z-10 grow">
-      <div className="grid grid-cols-8 grid-rows-6 max-h-[28rem] max-w-xs grow">
+      <div className="grid grid-cols-8 grid-rows-6 max-h-full max-w-full grow">
         <div className="row-span-full col-span-full self-center -z-10 relative">
           {/* <Image
             className=""
@@ -174,7 +174,7 @@ const AudioPlayer = (props) => {
             objectFit="cover"
             alt=""
           /> */}
-          <img src={props.songs[props.currentSongIndex].img_src}></img>
+          <img src={props.songs[props.currentSongIndex].img_src} className ="object-fill w-96"></img>
         </div>
         {/*Bottom Bar*/}
         <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative " >
