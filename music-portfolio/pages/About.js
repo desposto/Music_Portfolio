@@ -19,7 +19,7 @@ function About() {
       <div className="bg-bk font-mono w-screen flex justify-center text-lg font-bold pb-4">
         <Link href="/">Home</Link>
       </div>
-      <div className="h-[25.8rem] pt-4 text-center flex flex-col align-middle items-center space-y-4">
+      <div className="h-[25.8rem] pt-4 text-center flex flex-col align-middle items-center space-y-4 grow">
         <p className="">
           All Music created by David Esposto <br></br>
           Not Royalty-Free, Contact for Use! <br></br>
