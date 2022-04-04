@@ -14,7 +14,7 @@ function About() {
     setIsOpen(!isOpen);
   };
   return (
-    <div className="flex flex-col justify-center items-center bg-prp text-wt max-h-screen min-h-screen h-screen">
+    <div className="flex flex-col justify-center items-center bg-prp text-wt max-h-screen min-h-screen h-screen w-screen">
       <Navbar toggle={toggle}></Navbar>
       <div className="bg-bk font-mono w-screen flex justify-center text-lg font-bold pb-4">
         <Link href="/">Home</Link>
