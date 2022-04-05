@@ -5,7 +5,7 @@ import { FaYoutube, FaGithub, FaInstagram } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <div className="items-center h-8 bg-bk text-white relative shadow-lg font-mono flex text-base w-screen justify-between">
+    <div className="items-center h-10 bg-bk text-white relative shadow-lg font-mono flex  w-screen justify-between text-lg">
       <div className="flex items-center space-x-2 pl-4 ">
         <FaCopyright></FaCopyright>
         <div>David Esposto - 2022</div>

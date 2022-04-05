@@ -134,16 +134,6 @@ const AudioPlayer = (props) => {
     }
   };
 
-  // const handleKeyPress = (event) => {
-  //   if (event.key === " ") {
-  //     togglePlayPause();
-  //   } else if (event.key === "ArrowLeft") {
-  //     prevSong();
-  //   } else if (event.key === "ArrowRight") {
-  //     SkipSong();
-  //   }
-  // };
-
   //Shuffles song
   const shuffleSong = () => {
     const temp1 = isPlaying; //temp to hold if the player was playing upon Shuffle
@@ -164,12 +154,12 @@ const AudioPlayer = (props) => {
   };
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-xl flex flex-col justify-center items-center my-4 z-10 grow">
-      <div className="grid grid-cols-8 grid-rows-6 max-h-full max-w-full grow">
+    <div className="max-w-sm rounded overflow-hidden   flex flex-col justify-center items-center z-10 ">
+      <div className="grid grid-cols-8 grid-rows-6 max-h-full max-w-full">
         <div className="row-span-full col-span-full self-center -z-10 relative">
           {/* <Image
             className=""
-            src={props.songs[props.currentSongIndex].img_src}
+            src={props.songs[props.currentSongIndex].img_src}s
             layout="fill"
             objectFit="cover"
             alt=""
