@@ -154,7 +154,7 @@ const AudioPlayer = (props) => {
   };
 
   return (
-    <div className="max-w-sm rounded-lg overflow-hidden flex flex-col justify-center items-center z-10 ">
+    <div className="max-w-sm rounded-lg overflow-hidden flex flex-col justify-center items-center z-10 align-middle ">
       <div className="grid grid-cols-8 grid-rows-6 max-h-full max-w-full">
         <div className="row-span-full col-span-full self-center rounded -z-10 relative">
           {/* <Image
