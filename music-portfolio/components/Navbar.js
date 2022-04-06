@@ -5,7 +5,7 @@ import { BsMusicNoteBeamed } from "react-icons/bs";
 
 function Navbar({ toggle }) {
   return (
-    <div className="flex justify-between items-center h-16 bg-bk text-wt relative shadow-lg font-mono w-full font-bold text-xl">
+    <div className="flex justify-between items-center h-16 bg-bk text-wt relative shadow-lg font-mono w-full font-bold text-2xl">
       <div className="px-4 flex items-center ">
         <div className=" ">David Esposto - Music Portfolio </div>
         <div className="pl-4 animate-bounce">

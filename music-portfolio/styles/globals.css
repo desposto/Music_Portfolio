@@ -27,7 +27,7 @@ a {
 
 @layer components {
   .skipButtons {
-    @apply bg-none border-none flex items-center cursor-pointer text-wt hover:text-gray-500 text-3xl;
+    @apply bg-none border-none flex items-center cursor-pointer text-wt hover:text-gray-500 text-4xl;
   }
 }
 

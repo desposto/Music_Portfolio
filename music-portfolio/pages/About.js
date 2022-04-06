@@ -15,11 +15,10 @@ function About() {
   };
   return (
     <div className="flex flex-col justify-center items-center bg-prp text-wt max-h-screen min-h-screen h-screen w-screen">
-      <Navbar toggle={toggle}></Navbar>
-      <div className="bg-bk font-mono w-screen flex justify-center text-lg font-bold pb-4">
+      <div className="bg-bk font-mono w-screen flex justify-center text-2xl font-bold pb-4">
         <Link href="/">Home</Link>
       </div>
-      <div className="h-[25.8rem] pt-4 text-center flex flex-col align-middle items-center space-y-4 grow">
+      <div className="h-[25.8rem] pt-8 text-center text-2xl flex flex-col align-middle items-center space-y-4 grow">
         <p className="">
           All Music created by David Esposto <br></br>
           Not Royalty-Free, Contact for Use! <br></br>

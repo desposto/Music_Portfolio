@@ -154,9 +154,9 @@ const AudioPlayer = (props) => {
   };
 
   return (
-    <div className="max-w-sm rounded overflow-hidden   flex flex-col justify-center items-center z-10 ">
+    <div className="max-w-sm rounded-lg overflow-hidden flex flex-col justify-center items-center z-10 ">
       <div className="grid grid-cols-8 grid-rows-6 max-h-full max-w-full">
-        <div className="row-span-full col-span-full self-center -z-10 relative">
+        <div className="row-span-full col-span-full self-center rounded -z-10 relative">
           {/* <Image
             className=""
             src={props.songs[props.currentSongIndex].img_src}s
@@ -164,17 +164,17 @@ const AudioPlayer = (props) => {
             objectFit="cover"
             alt=""
           /> */}
-          <img src={props.songs[props.currentSongIndex].img_src} className ="object-fill w-96"></img>
+          <img src={props.songs[props.currentSongIndex].img_src} className ="object-fill w-96 h-[34rem]"></img>
         </div>
         {/*Bottom Bar*/}
         <div className="col-start-1 col-span-8 row-start-5 row-span-2 grid grid-rows-6 grid-cols-11 bg-gradient-to-t from-bk via-bk bg-opacity-20 place-items-center relative " >
           <div className="row-start-3 row-span-1 grid p-0 absolute left-10 bottom-1 ">
             {/* Title */}
-            <div className=" text-wt font-mono font-bold ">
+            <div className=" text-wt font-mono font-bold text-xl ">
               {props.songs[props.currentSongIndex].title}
             </div>
             {/* BPM */}
-            <div className="text-xs font-mono text-wt absolute top-4 italic">
+            <div className="text-lg font-mono text-wt absolute top-4 italic">
               {props.songs[props.currentSongIndex].bpm}BPM
             </div>
           </div>
@@ -189,7 +189,7 @@ const AudioPlayer = (props) => {
           {/* Buttons */}
           <div className="flex row-start-5 col-start-6">
             <button
-              className={` text-wt text-xl  rounded-xl hover:shadow-xl hover:text-red-400 ${
+              className={` text-wt text-2xl  rounded-xl hover:shadow-xl hover:text-red-400 ${
                 isLiked && "text-red-700"
               } bg-none`}
               onClick={handleLike}
